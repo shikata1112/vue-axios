@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "./axios-auth";
 
 export default {
   data() {
@@ -29,17 +29,15 @@ export default {
     }
   },
   created() {
-    axios.get(
-      'https://firestore.googleapis.com/v1/projects/vuejs-axios-f8c84/databases/(default)/documents/comments'
-    ).then(response => {
+    axios.get('/comments')
+    .then(response => {
       this.posts = response.data.documents;
       console.log(response.data.documents);
     });
   },
   methods: {
     createComment() {
-      axios.post(
-        'https://firestore.googleapis.com/v1/projects/vuejs-axios-f8c84/databases/(default)/documents/comments',
+      axios.post('/comments',
         {
           fields: {
             name: {
